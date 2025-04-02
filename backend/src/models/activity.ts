@@ -45,11 +45,11 @@ export const activityElysiaSchema = t.Object({
 
   name: t.String({
     description: "활동(동아리) 이름",
-    examples: ["LUNA", "웹 개발 동아리"],
+    examples: ["LUNA"],
   }),
   headline: t.String({
     description: "활동(동아리) 한 줄 소개",
-    examples: ["세상을 비추는 달", "웹 개발 동아리입니다."],
+    examples: ["세상을 비추는 달"],
   }),
   edit_permission: t.String({
     enum: permissionList,
@@ -62,40 +62,36 @@ export const activityElysiaSchema = t.Object({
   }),
   small_type: t.String({
     description: "활동(동아리) 소분류",
-    examples: ["IT쇼셜벤처", "모바일 개발"],
+    examples: ["IT쇼셜벤처"],
   }),
 
   logo_url: t.String({
     description: "활동(동아리) 로고 URL",
     examples: [
       "https://example.com/logo.png",
-      "https://example.com/logo.jpg",
     ],
   }),
   key_color: t.String({
     description: "활동(동아리) 키 색상",
-    examples: ["#000000", "#FFFFFF"],
+    examples: ["#000000"],
   }),
 
   video_url: t.Optional(t.Union([t.String({
     description: "활동(동아리) 소개 영상 URL",
     examples: [
       "https://www.youtube.com/watch?v=1234123",
-      "https://www.youtube.com/watch?v=abcd1234",
     ],
   }), t.Null()])),
   description: t.Optional(t.Union([t.String({
     description: "활동(동아리) 소개",
     examples: [
       "이것은 동아리 소개입니다.",
-      "웹 개발 동아리입니다.",
     ],
   }), t.Null()])),
   activity_history: t.Optional(t.Union([t.String({
     description: "활동(동아리) 계획",
     examples: [
       "이것은 동아리 활동 계획입니다.",
-      "웹 개발 동아리입니다.",
     ],
   }), t.Null()])),
   awards: t.Optional(t.Union([
@@ -103,15 +99,15 @@ export const activityElysiaSchema = t.Object({
       t.Object({
         type: t.String({
           description: "수상 종류",
-          examples: ["대상", "장려상"],
+          examples: ["대상"],
         }),
         name: t.String({
           description: "수상 이름",
-          examples: ["개쩌는대회", "웹 개발 대회"],
+          examples: ["개쩌는대회"],
         }),
         date: t.Optional(t.Union([t.String({
           description: "수상 날짜",
-          examples: ["2024-01-01", "2023-12-31"],
+          examples: ["2024-01-01"],
         }), t.Null()])),
       }),
     ),
@@ -121,12 +117,11 @@ export const activityElysiaSchema = t.Object({
     description: "활동(동아리) 이미지 URL",
     examples: [
       "https://example.com/image.png",
-      "https://example.com/image.jpg",
     ],
   })), t.Null()])),
   is_hidden: t.Optional(t.Union([t.Boolean({
     description: "활동(동아리) 숨김 여부",
-    examples: [false, true],
+    examples: [false],
   }), t.Null()])),
 });
 

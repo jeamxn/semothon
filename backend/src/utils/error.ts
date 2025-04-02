@@ -16,6 +16,8 @@ export const ERROR_MESSAGE = {
   NO_ACTIVITY_ID: [400, "활동 ID가 없습니다."],
   NO_ACTIVITY: [404, "존재하지 않는 활동입니다."],
 
+  UPDATE_FAILED: [500, "수정에 실패했습니다."],
+
   NOT_FOUNDED_KEY: [404, "찾을 수 없는 식당입니다."],
 } as const;
 
