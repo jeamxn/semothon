@@ -11,7 +11,6 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
   "",
   async ({ activityModel, body, user, joinedActivityModel, error }) => {
     const {
-      type,
       name,
       headline,
       big_type,
@@ -21,10 +20,9 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
     const userId = (user as IUser)._id;
 
     const insert = await activityModel.create({
-      type: type as ActivityCategoryType,
       name,
       headline,
-      big_type,
+      big_type: big_type as ActivityCategoryType,
       small_type,
       logo_url,
       key_color: "#000000",
@@ -48,12 +46,6 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
   },
   {
     body: t.Object({
-      type: t.String({
-        description: "활동(동아리) 종류",
-        enum: ActivityCategory,
-        default: "etc",
-        examples: ActivityCategory,
-      }),
       name: t.String({
         description: "활동(동아리) 이름",
       }),
@@ -61,7 +53,9 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
         description: "활동(동아리) 한 줄 소개",
       }),
       big_type: t.String({
-        description: "활동(동아리) 대분류",
+        description: "활동(동아리) 종류",
+        default: "etc",
+        examples: ActivityCategory,
       }),
       small_type: t.String({
         description: "활동(동아리) 소분류",

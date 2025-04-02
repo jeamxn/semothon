@@ -9,12 +9,18 @@ export const ActivityCategory = [
   "etc",
 ] as const;
 export type ActivityCategoryType = typeof ActivityCategory[number];
-interface DActivity {
-  type: ActivityCategoryType;
 
+interface Award {
+  type: string;
+  name: string;
+  date?: string;
+}
+
+interface DActivity {
   name: string;
   headline: string;
-  big_type: string;
+
+  big_type: ActivityCategoryType;
   small_type: string;
 
   logo_url: string;
@@ -23,11 +29,7 @@ interface DActivity {
   video_url?: string;
   description?: string;
   activity_history?: string;
-  awards?: {
-    type: string;
-    name: string;
-    date?: string;
-  }[];
+  awards?: Award[];
   images_url?: string[];
 
   is_hidden?: boolean;
@@ -38,10 +40,10 @@ export const activityElysiaSchema = t.Object({
   // type: t.Union(
   //   ActivityCategory.map((category) => t.Literal(category)),
   // ),
-  type: t.String(),
-
+  
   name: t.String(),
   headline: t.String(),
+
   big_type: t.String(),
   small_type: t.String(),
 
@@ -66,14 +68,14 @@ export const activityElysiaSchema = t.Object({
 });
 
 const activitySchema = new mongoose.Schema({
-  type: {
+  name: { type: String, required: true },
+  headline: { type: String, required: true },
+
+  big_type: {
     type: String,
     enum: ["center", "major", "study", "meeting", "etc"],
     required: true,
   },
-  name: { type: String, required: true },
-  headline: { type: String, required: true },
-  big_type: { type: String, required: true },
   small_type: { type: String, required: true },
 
   logo_url: { type: String, required: true },

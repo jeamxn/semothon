@@ -1,15 +1,26 @@
 import Elysia, { t } from "elysia";
 
-import ActivityModel, { activityElysiaSchema, IActivity } from "@back/models/activity";
+import ActivityModel, { ActivityCategory, activityElysiaSchema, IActivity } from "@back/models/activity";
 
 const list = new Elysia().use(ActivityModel).get(
   "",
-  async ({ activityModel }) => {
+  async ({ activityModel, query }) => {
+    console.log("query", query);
     const activitySearch = await activityModel.db.find({
       $or: [
         { is_hidden: false },
         { is_hidden: null },
       ],
+      ...(query.big_type && query.big_type !== "all" ? { big_type: query.big_type } : {}),
+      ...(query.small_type && query.small_type !== "all" ? { small_type: query.small_type } : {}),
+      ...(query.search ? {
+        $or: [
+          { name: { $regex: query.search, $options: "i" } },
+          { headline: { $regex: query.search, $options: "i" } },
+          { big_type: { $regex: query.search, $options: "i" } },
+          { small_type: { $regex: query.search, $options: "i" } },
+        ],
+      } : {}),
     });
     if (!activitySearch || activitySearch.length === 0) {
       return [];
@@ -20,6 +31,20 @@ const list = new Elysia().use(ActivityModel).get(
     return activityList;
   },
   {
+    query: t.Object({
+      big_type: t.Optional(t.Union([t.String({
+        description: "활동(동아리) 종류",
+        examples: ["all", ...ActivityCategory],
+        default: "all",
+      }), t.Null()])),
+      small_type: t.Optional(t.Union([t.String({
+        description: "활동(동아리) 세부 종류",
+        default: "all",
+      }), t.Null()])),
+      search: t.Optional(t.String({
+        description: "활동(동아리) 검색 내용",
+      })),
+    }),
     response: {
       200: t.Array(activityElysiaSchema),
     },
