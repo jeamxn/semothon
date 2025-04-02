@@ -20,34 +20,43 @@ const mongodb = new URL(Bun.env.MONGODB_URI ?? "");
 db.on("open", console.log.bind(console, `💽 MongoDB connected to ${mongodb.hostname}:${mongodb.port}`));
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-const app = new Elysia();
+const app = new Elysia()
+  .use(
+    cors({
+      origin: true,
+    }),
+  )
+  .use(Crons)
+  .use(IndexRouter)
+  .onError(({ error, code }) => {
+    if (code === "NOT_FOUND") return;
+    console.error(error);
+  })
+  .listen(8000);
 
 if (Bun.env.NODE_ENV === "development") { 
   app.use(swagger({
     documentation: {
+      info: {
+        title: "세모톤 8조 API 문서",
+        description: "세모톤 8조의 API 문서입니다.",
+        version: "0.0.1",
+      },
       tags: [
         {
           name: "Auth",
           description: "인증에 관련된 API입니다.",
+        },
+        {
+          name: "Activity",
+          description: "활동(동아리)에 관련된 API입니다.",
         }
       ]
     }
   }));
 }
 
-app.use(
-  cors({
-    origin: true,
-  }),
-);
-app.use(Crons);
-app.use(IndexRouter);
-app.onError(({ error, code }) => {
-  if (code === "NOT_FOUND") return;
-  console.error(error);
-});
-
-app.listen(8000);
-
 console.log(`🕑 Reloaded at ${dayjs().format("YYYY-MM-DD HH:mm:ss.SSS")}`);
 console.log(`🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`);
+
+export type App = typeof app;

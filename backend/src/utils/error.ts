@@ -10,6 +10,9 @@ export const ERROR_MESSAGE = {
   UNAUTHORIZED: [401, "인증되지 않은 사용자입니다."],
   NO_REFRESH_TOKEN: [401, "리프레시 토큰이 없습니다."],
 
+  INSERT_ACTIVITY_FAILED: [500, "활동(동아리) 생성에 실패했습니다."],
+  PERMISSION_DENIED: [403, "접근 권한이 없습니다."],
+
   NO_ACTIVITY_ID: [400, "활동 ID가 없습니다."],
   NO_ACTIVITY: [404, "존재하지 않는 활동입니다."],
 

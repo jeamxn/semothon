@@ -1,4 +1,4 @@
 export interface Me {
-  id: string;
+  _id: string;
   email: string;
 }

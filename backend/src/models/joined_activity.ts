@@ -1,18 +1,33 @@
+import dayjs from "dayjs";
 import Elysia from "elysia";
 import mongoose, { ObjectId, type Document } from "mongoose";
 
 interface DJoinedActivity {
-  activityId: ObjectId;
-  userId: ObjectId;
+  activity_id: ObjectId;
+  user_id: ObjectId;
   permission: "president" | "vice_president" | "member";
-  joinedAt: String;
+  joined_at: String;
 }
 type IJoinedActivity = Document<DJoinedActivity> & DJoinedActivity;
 
 const joinedActivitySchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  picture: { type: String, required: true },
-  name: { type: String, required: true },
+  activity_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  user_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+  },
+  permission: {
+    type: String,
+    enum: ["president", "vice_president", "member"],
+    default: "member",
+  },
+  joined_at: {
+    type: String,
+    default: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+  },
 });
 const JoinedActivityDB = mongoose.model<IJoinedActivity>("JoinedActivity", joinedActivitySchema);
 

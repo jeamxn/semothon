@@ -1,8 +1,16 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import mongoose, { type Document } from "mongoose";
 
+export const ActivityCategory = [
+  "center",
+  "major",
+  "study",
+  "meeting",
+  "etc",
+] as const;
+export type ActivityCategoryType = typeof ActivityCategory[number];
 interface DActivity {
-  type: "center" | "major" | "study" | "meeting" | "etc";
+  type: ActivityCategoryType;
 
   name: string;
   headline: string;
@@ -22,7 +30,37 @@ interface DActivity {
   }[];
   images_url?: string[];
 }
-type IActivity = Document<DActivity> & DActivity;
+export type IActivity = Document<DActivity> & DActivity;
+
+export const activityElysiaSchema = t.Object({
+  // type: t.Union(
+  //   ActivityCategory.map((category) => t.Literal(category)),
+  // ),
+  type: t.String(),
+
+  name: t.String(),
+  headline: t.String(),
+  big_type: t.String(),
+  small_type: t.String(),
+
+  logo_url: t.String(),
+  key_color: t.String(),
+
+  video_url: t.Optional(t.Union([t.String(), t.Null()])),
+  description: t.Optional(t.Union([t.String(), t.Null()])),
+  activity_history: t.Optional(t.Union([t.String(), t.Null()])),
+  awards: t.Optional(t.Union([
+    t.Array(
+      t.Object({
+        type: t.String(),
+        name: t.String(),
+        date: t.Optional(t.Union([t.String(), t.Null()])),
+      }),
+    ),
+    t.Null(),
+  ])),
+  images_url: t.Optional(t.Union([t.Array(t.String()), t.Null()])),
+});
 
 const activitySchema = new mongoose.Schema({
   type: {

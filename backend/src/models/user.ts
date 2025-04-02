@@ -8,7 +8,7 @@ interface DUser {
   picture: string;
   name: string;
 }
-type IUser = Document<DUser> & DUser;
+export type IUser = Document<DUser> & DUser;
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },

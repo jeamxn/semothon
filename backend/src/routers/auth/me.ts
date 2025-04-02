@@ -8,14 +8,14 @@ const me = new Elysia().use(getUser).get(
   "me",
   async ({ user }): Promise<Me> => {
     return {
-      id: user.id,
+      _id: user._id.toString(),
       email: user.email,
     };
   },
   {
     response: {
       200: t.Object({
-        id: t.String(),
+        _id: t.String(),
         email: t.String(),
       }),
     },
