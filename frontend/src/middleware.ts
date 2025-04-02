@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 
-import instance from "@front/utils/instance";
-
 export const middleware = async (request: Readonly<NextRequest>) => {
   const origin = request.nextUrl.origin;
   const requestHeaders = new Headers(request.headers);
@@ -21,15 +19,16 @@ export const middleware = async (request: Readonly<NextRequest>) => {
     const check_need_auth = need_auth.some((path) => pathname.includes(path));
     if(!check_no_auth && !check_need_auth) return NextResponse.next();
 
-    const { data } = await instance.post(
-      "/auth/check",
-      {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/check`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         refresh_token: request.cookies.get("refresh_token")?.value ?? "",
-      },
-      {
-        validateStatus: () => true,
-      },
-    );
+      }),
+    });
+    const data = await response.json();
 
     if (check_need_auth) {
       if (data.success) {
