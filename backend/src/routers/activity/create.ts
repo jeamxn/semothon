@@ -28,6 +28,7 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
       small_type,
       logo_url,
       key_color: "#000000",
+      is_hidden: false,
     });
     if (!insert) {
       return exit(error, "INSERT_ACTIVITY_FAILED");

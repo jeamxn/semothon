@@ -29,6 +29,8 @@ interface DActivity {
     date?: string;
   }[];
   images_url?: string[];
+
+  is_hidden?: boolean;
 }
 export type IActivity = Document<DActivity> & DActivity;
 
@@ -60,6 +62,7 @@ export const activityElysiaSchema = t.Object({
     t.Null(),
   ])),
   images_url: t.Optional(t.Union([t.Array(t.String()), t.Null()])),
+  is_hidden: t.Optional(t.Union([t.Boolean(), t.Null()])),
 });
 
 const activitySchema = new mongoose.Schema({
@@ -87,6 +90,7 @@ const activitySchema = new mongoose.Schema({
     },
   ],
   images_url: [{ type: String }],
+  is_hidden: { type: Boolean, default: false },
 });
 const ActivityDB = mongoose.model<IActivity>("Activity", activitySchema);
 

@@ -5,7 +5,12 @@ import ActivityModel, { activityElysiaSchema, IActivity } from "@back/models/act
 const list = new Elysia().use(ActivityModel).get(
   "",
   async ({ activityModel }) => {
-    const activitySearch = await activityModel.db.find();
+    const activitySearch = await activityModel.db.find({
+      $or: [
+        { is_hidden: false },
+        { is_hidden: null },
+      ],
+    });
     if (!activitySearch || activitySearch.length === 0) {
       return [];
     }

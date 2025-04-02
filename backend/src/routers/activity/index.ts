@@ -2,7 +2,7 @@ import Elysia from "elysia";
 
 import ActivityIdRouter from "./[:id]";
 import create from "./create";
-import list from "./info";
+import list from "./list";
 
 const ActivityRouter = new Elysia({
   name: "Activity Router",
