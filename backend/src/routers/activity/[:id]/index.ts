@@ -2,8 +2,9 @@ import Elysia from "elysia";
 
 import getActivity from "@back/guards/getActivity";
 
+import basic_update from "./basic_update";
+import details_update from "./details_update";
 import info from "./info";
-import update from "./update";
 
 const ActivityIdRouter = new Elysia({
   name: "Activity Router",
@@ -11,6 +12,7 @@ const ActivityIdRouter = new Elysia({
 })
   .use(getActivity)
   .use(info)
-  .use(update);
+  .use(basic_update)
+  .use(details_update);
 
 export default ActivityIdRouter;

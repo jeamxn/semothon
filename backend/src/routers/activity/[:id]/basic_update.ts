@@ -4,10 +4,10 @@ import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
 import exit from "@back/utils/error";
 
-const update = new Elysia()
-  .use(activityAuthorityService())
+const basic_update = new Elysia()
+  .use(activityAuthorityService("vice_president"))
   .post(
-    "details",
+    "basic",
     async ({ activity, body, activityModel, error }) => {
       const updated = await activityModel.db.updateOne(
         { _id: activity._id },
@@ -28,12 +28,13 @@ const update = new Elysia()
     {
       body: t.Partial(
         t.Object({
-          headline: activityElysiaSchema.properties.headline,
-          video_url: activityElysiaSchema.properties.video_url,
-          description: activityElysiaSchema.properties.description,
-          activity_history: activityElysiaSchema.properties.activity_history,
-          awards: activityElysiaSchema.properties.awards,
-          images_url: activityElysiaSchema.properties.images_url,
+          name: activityElysiaSchema.properties.name,
+          edit_permission: activityElysiaSchema.properties.edit_permission,
+          big_type: activityElysiaSchema.properties.big_type,
+          small_type: activityElysiaSchema.properties.small_type,
+          logo_url: activityElysiaSchema.properties.logo_url,
+          key_color: activityElysiaSchema.properties.key_color,
+          is_hidden: activityElysiaSchema.properties.is_hidden,
         })
       ),
       response: {
@@ -50,10 +51,10 @@ const update = new Elysia()
       },
       detail: {
         tags: ["Activity"],
-        summary: "활동(동아리) 세부 정보 수정하기",
+        summary: "활동(동아리) 기본 정보 수정하기",
         description: "1개의 활동(동아리)의 정보를 수정합니다.",
       }
     },
   );
 
-export default update;
+export default basic_update;

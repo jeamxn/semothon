@@ -52,7 +52,7 @@ export const activityElysiaSchema = t.Object({
     examples: ["세상을 비추는 달"],
   }),
   edit_permission: t.String({
-    enum: permissionList,
+    examples: permissionList,
     description: "활동(동아리) 내용 수정 권한",
   }),
 
