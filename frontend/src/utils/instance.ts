@@ -1,12 +1,8 @@
-import { treaty } from "@elysiajs/eden";
+import axios from "axios";
 
-import type { App } from "@back/index";
-
-const instance = treaty<App>(process.env.NEXT_PUBLIC_API_URL ?? "", {
-  fetcher: (url, options) => fetch(url, {
-    ...options,
-    credentials: "include",
-  }),
+const instance = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
+  withCredentials: true,
 });
 
 export default instance;

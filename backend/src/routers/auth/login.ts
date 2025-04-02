@@ -1,3 +1,4 @@
+import axios from "axios";
 import Elysia, { t } from "elysia";
 
 import UserModel from "@back/models/user";
@@ -7,15 +8,15 @@ import exit, { errorElysia } from "@back/utils/error";
 const login = new Elysia().use(UserModel).post(
   "login",
   async ({ body, userModel, cookie, error }) => {
-    const googleResponse = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+    const googleResponse = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: {
         Authorization: `Bearer ${body.token}`,
       },
     });
-    if (!googleResponse.ok) {
+    if (googleResponse.status !== 200) {
       return exit(error, "INVALID_TOKEN");
     }
-    const { email, picture, name } = await googleResponse.json();
+    const { email, picture, name } = googleResponse.data;
 
     const update = await userModel.db.findOneAndUpdate(
       { email },

@@ -11,11 +11,10 @@ const GoogleLoginButton = () => {
 
   const login = useGoogleLogin({
     onSuccess: async (res) => {
-      const { data } = await instance.auth.login.post({
+      const { data } = await instance.post("/auth/login", {
         token: res.access_token,
       });
-
-      if (data?.success) {
+      if (data.success) {
         router.replace("/");
       } else {
         alert("로그인에 실패했습니다.");
