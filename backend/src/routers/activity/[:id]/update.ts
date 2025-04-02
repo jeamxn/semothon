@@ -4,7 +4,7 @@ import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
 
 const update = new Elysia()
-  .use(activityAuthorityService)
+  .use(activityAuthorityService())
   .post(
     "",
     async ({ activity }) => {

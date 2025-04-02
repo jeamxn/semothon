@@ -6,7 +6,7 @@ import exit, { errorElysia } from "@back/utils/error";
 import getActivity from "./getActivity";
 import getUser from "./getUser";
 
-const activityAuthorityService = new Elysia()
+const activityAuthorityService = (level?: PermissionType) => new Elysia()
   .use(getUser)
   .use(getActivity)
   .use(JoinedActivityModel)
@@ -18,11 +18,11 @@ const activityAuthorityService = new Elysia()
   .resolve(async ({ activity, user, joinedActivityModel, error }) => {
     const user_id = user._id;
     const activity_id = activity._id;
-    const level = activity.edit_permission as PermissionType;
-    if (!level) return exit(error, "UNAUTHORIZED");
+    const local_level = level ?? activity.edit_permission;
+    if (!local_level) return exit(error, "UNAUTHORIZED");
     const premissions = permissionList.slice(
       0,
-      permissionList.indexOf(level) + 1
+      permissionList.indexOf(local_level) + 1
     );
     const joined_activity = await joinedActivityModel.db.find({
       activity_id,

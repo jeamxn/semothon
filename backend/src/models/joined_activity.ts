@@ -5,9 +5,11 @@ import mongoose, { ObjectId } from "mongoose";
 import { IDocument } from "@common/types/db";
 
 export const permissionList = [
+  // 위로 갈수록 권한이 높음
   "president",
   "vice_president",
   "member",
+  // 아래로 갈수록 권한이 낮음
 ] as const;
 export type PermissionType = typeof permissionList[number];
 
