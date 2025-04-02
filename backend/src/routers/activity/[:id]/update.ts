@@ -3,9 +3,11 @@ import Elysia from "elysia";
 import getActivity from "@back/guards/getActivity";
 import { activityElysiaSchema } from "@back/models/activity";
 
-const info = new Elysia().use(getActivity).get(
+const update = new Elysia().use(getActivity).post(
   "",
-  async ({ activity }) => activity,
+  async ({ activity }) => {
+    return activity;
+  },
   {
     response: {
       200: activityElysiaSchema,
@@ -18,4 +20,4 @@ const info = new Elysia().use(getActivity).get(
   },
 );
 
-export default info;
+export default update;

@@ -76,7 +76,7 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
           examples: [dayjs().format("YYYY-MM-DD HH:mm:ss")],
         }),
       }),
-      ...errorElysia(["NO_ACTIVITY_ID", "NO_ACTIVITY", "UNAUTHORIZED"]),
+      ...errorElysia(["NO_ACTIVITY_ID", "NO_ACTIVITY"]),
     },
     detail: {
       tags: ["Activity"],

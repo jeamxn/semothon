@@ -1,17 +1,29 @@
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 
-import ActivityModel from "@back/models/activity";
-import exit from "@back/utils/error";
+import ActivityModel, { IActivity } from "@back/models/activity";
+import exit, { errorElysia } from "@back/utils/error";
 
 const getActivity = new Elysia()
   .use(ActivityModel)
-  .resolve(async ({ activityModel, params, error }) => {
+  .guard({
+    params: t.Object({
+      activity_id: t.String({
+        description: "활동(동아리) ID",
+      }),
+    }),
+    response: {
+      ...errorElysia(["NO_ACTIVITY_ID", "NO_ACTIVITY", "INVALID_ID_TYPE"]),
+    }
+  })
+  .resolve(async ({ activityModel, params, error }): Promise<{
+    activity: IActivity;
+  }> => {
     try {
-      const { id } = params as { id: string };
-      if (!id) {
+      const { activity_id } = params;
+      if (!activity_id) {
         return exit(error, "NO_ACTIVITY_ID");
       }
-      const activitySearch = await activityModel.db.findById(id);
+      const activitySearch = await activityModel.db.findById(activity_id);
       if (!activitySearch) {
         return exit(error, "NO_ACTIVITY");
       }

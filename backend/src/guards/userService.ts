@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 
 import UserModel from "@back/models/user";
-import exit from "@back/utils/error";
+import exit, { errorElysia } from "@back/utils/error";
 
 const userService = new Elysia({ name: "user/service" })
   .state({
@@ -10,6 +10,11 @@ const userService = new Elysia({ name: "user/service" })
   })
   .model({})
   .use(UserModel)
+  .guard({
+    response: {
+      ...errorElysia(["UNAUTHORIZED"])
+    }
+  })
   .macro({
     isSignIn: (enabled: boolean) => {
       if (!enabled) return;
