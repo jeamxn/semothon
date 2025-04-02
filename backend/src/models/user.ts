@@ -1,14 +1,16 @@
 import Bun from "bun";
 import Elysia from "elysia";
 import { type JWTPayload, SignJWT, jwtVerify } from "jose";
-import mongoose, { type Document } from "mongoose";
+import mongoose from "mongoose";
+
+import { IDocument } from "@common/types/db";
 
 interface DUser {
   email: string;
   picture: string;
   name: string;
 }
-export type IUser = Document<DUser> & DUser;
+export type IUser = IDocument<DUser>;
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },

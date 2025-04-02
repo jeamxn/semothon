@@ -7,7 +7,7 @@ export const ERROR_MESSAGE = {
   INVALID_TYPE_PASSWORD: [400, "유효하지 않은 비밀번호(password)입니다."],
   INVALID_ID_TYPE: [400, "유효하지 않은 ID 형식입니다."],
   INVALID_TOKEN: [401, "유효하지 않은 토큰입니다."],
-  UNAUTHORIZED: [401, "인증되지 않은 사용자입니다."],
+  UNAUTHORIZED: [401, "권한이 없는 사용자입니다."],
   NO_REFRESH_TOKEN: [401, "리프레시 토큰이 없습니다."],
 
   INSERT_ACTIVITY_FAILED: [500, "활동(동아리) 생성에 실패했습니다."],

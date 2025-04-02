@@ -1,14 +1,23 @@
 import dayjs from "dayjs";
 import Elysia from "elysia";
-import mongoose, { ObjectId, type Document } from "mongoose";
+import mongoose, { ObjectId } from "mongoose";
+
+import { IDocument } from "@common/types/db";
+
+export const permissionList = [
+  "president",
+  "vice_president",
+  "member",
+] as const;
+export type PermissionType = typeof permissionList[number];
 
 interface DJoinedActivity {
   activity_id: ObjectId;
   user_id: ObjectId;
-  permission: "president" | "vice_president" | "member";
+  permission: PermissionType;
   joined_at: String;
 }
-type IJoinedActivity = Document<DJoinedActivity> & DJoinedActivity;
+type IJoinedActivity = IDocument<DJoinedActivity>;
 
 const joinedActivitySchema = new mongoose.Schema({
   activity_id: {
@@ -32,15 +41,15 @@ const joinedActivitySchema = new mongoose.Schema({
 const JoinedActivityDB = mongoose.model<IJoinedActivity>("JoinedActivity", joinedActivitySchema);
 
 const findByActivityIdAndUserId = async ({
-  activityId,
-  userId,
+  activity_id,
+  user_id,
 }: {
-  activityId: ObjectId;
-  userId: ObjectId;
+  activity_id: ObjectId;
+  user_id: ObjectId;
 }): Promise<IJoinedActivity[] | null> => {
   const joinedActivity = await JoinedActivityDB.find({
-    activityId,
-    userId,
+    activity_id,
+    user_id,
   });
   return joinedActivity;
 };

@@ -4,7 +4,6 @@ import Elysia, { t } from "elysia";
 import getUser from "@back/guards/getUser";
 import ActivityModel, { ActivityCategory, ActivityCategoryType } from "@back/models/activity";
 import JoinedActivityModel from "@back/models/joined_activity";
-import { IUser } from "@back/models/user";
 import exit, { errorElysia } from "@back/utils/error";
 
 const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getUser).post(
@@ -17,11 +16,12 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
       small_type,
       logo_url,
     } = body;
-    const userId = (user as IUser)._id;
+    const userId = user._id;
 
     const insert = await activityModel.create({
       name,
       headline,
+      edit_permission: "president",
       big_type: big_type as ActivityCategoryType,
       small_type,
       logo_url,
@@ -41,7 +41,7 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
 
     return {
       _id: insert._id.toString(),
-      created_at: joinedActivity.joined_at,
+      created_at: joinedActivity.toObject().joined_at,
     };
   },
   {

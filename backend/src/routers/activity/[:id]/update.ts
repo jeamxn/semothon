@@ -1,23 +1,25 @@
 import Elysia from "elysia";
 
-import getActivity from "@back/guards/getActivity";
+import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
 
-const update = new Elysia().use(getActivity).post(
-  "",
-  async ({ activity }) => {
-    return activity;
-  },
-  {
-    response: {
-      200: activityElysiaSchema,
+const update = new Elysia()
+  .use(activityAuthorityService)
+  .post(
+    "",
+    async ({ activity }) => {
+      return activity;
     },
-    detail: {
-      tags: ["Activity"],
-      summary: "활동(동아리) 정보 가져오기",
-      description: "1개의 활동(동아리)의 정보를 가져옵니다.",
-    }
-  },
-);
+    {
+      response: {
+        200: activityElysiaSchema,
+      },
+      detail: {
+        tags: ["Activity"],
+        summary: "활동(동아리) 정보 수정하기",
+        description: "1개의 활동(동아리)의 정보를 수정합니다.",
+      }
+    },
+  );
 
 export default update;
