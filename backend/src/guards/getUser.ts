@@ -4,24 +4,24 @@ import exit from "@back/utils/error";
 
 import userService from "./userService";
 
-const getUserInfo = new Elysia()
+const getUser = new Elysia()
   .use(userService)
   .guard({
     isSignIn: true,
   })
-  .resolve(async ({ cookie, user, error }) => {
+  .resolve(async ({ cookie, userModel, error }) => {
     const access_token = cookie.access_token.value;
     if (!access_token) {
       return exit(error, "UNAUTHORIZED");
     }
-    const verify = await user.verifyToken(access_token);
+    const verify = await userModel.verifyToken(access_token);
     if (!verify) {
       return exit(error, "UNAUTHORIZED");
     }
-    const userSearch = await user.db.findById(verify.id);
+    const userSearch = await userModel.db.findById(verify.id);
     const { ...userInfo } = { ...userSearch?.toObject() };
     return {
-      userInfo: {
+      user: {
         ...userInfo,
         id: userInfo._id?.toString(),
       },
@@ -29,4 +29,4 @@ const getUserInfo = new Elysia()
   })
   .as("plugin");
 
-export default getUserInfo;
+export default getUser;

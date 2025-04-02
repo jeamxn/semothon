@@ -2,14 +2,14 @@ import Elysia, { t } from "elysia";
 
 import { Me } from "@common/types/responses";
 
-import getUserInfo from "@back/guards/getUserInfo";
+import getUser from "@back/guards/getUser";
 
-const me = new Elysia().use(getUserInfo).get(
+const me = new Elysia().use(getUser).get(
   "me",
-  async ({ userInfo }): Promise<Me> => {
+  async ({ user }): Promise<Me> => {
     return {
-      id: userInfo.id,
-      email: userInfo.email,
+      id: user.id,
+      email: user.email,
     };
   },
   {

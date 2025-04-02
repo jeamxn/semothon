@@ -1,13 +1,13 @@
 import axios from "axios";
 import Elysia, { t } from "elysia";
 
-import User from "@back/models/user";
+import UserModel from "@back/models/user";
 import exit, { errorElysia } from "@back/utils/error";
 
 
-const login = new Elysia().use(User).post(
+const login = new Elysia().use(UserModel).post(
   "login",
-  async ({ body, user, cookie, error }) => {
+  async ({ body, userModel, cookie, error }) => {
     const googleResponse = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: {
         Authorization: `Bearer ${body.token}`,
@@ -18,7 +18,7 @@ const login = new Elysia().use(User).post(
     }
     const { email, picture, name } = googleResponse.data;
 
-    const update = await user.db.findOneAndUpdate(
+    const update = await userModel.db.findOneAndUpdate(
       { email },
       {
         picture,
@@ -30,8 +30,8 @@ const login = new Elysia().use(User).post(
       },
     );
 
-    const refresh = await user.generateToken(update, "refresh");
-    const access = await user.generateToken(update, "access");
+    const refresh = await userModel.generateToken(update, "refresh");
+    const access = await userModel.generateToken(update, "access");
 
     cookie.refresh_token.set({
       value: refresh,

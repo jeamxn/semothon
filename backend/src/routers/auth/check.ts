@@ -1,14 +1,14 @@
 import Elysia, { t } from "elysia";
 
-import User from "@back/models/user";
+import UserModel from "@back/models/user";
 import exit, { errorElysia } from "@back/utils/error";
 
-const check = new Elysia().use(User).post(
+const check = new Elysia().use(UserModel).post(
   "check",
-  async ({ body, user, error }) => {
+  async ({ body, userModel, error }) => {
     const { refresh_token } = body;
     if (!refresh_token) return exit(error, "NO_REFRESH_TOKEN");
-    const verify = await user.verifyToken(refresh_token);
+    const verify = await userModel.verifyToken(refresh_token);
     if (!verify) return exit(error, "UNAUTHORIZED");
     return {
       success: true,

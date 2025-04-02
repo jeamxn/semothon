@@ -1,6 +1,6 @@
 import { Elysia } from "elysia";
 
-import User from "@back/models/user";
+import UserModel from "@back/models/user";
 import exit from "@back/utils/error";
 
 const userService = new Elysia({ name: "user/service" })
@@ -9,23 +9,23 @@ const userService = new Elysia({ name: "user/service" })
     session: {} as Record<number, string>,
   })
   .model({})
-  .use(User)
+  .use(UserModel)
   .macro({
     isSignIn: (enabled: boolean) => {
       if (!enabled) return;
       return {
-        beforeHandle: async ({ cookie, user, error }) => {
+        beforeHandle: async ({ cookie, userModel, error }) => {
           const access_token = cookie.access_token.value;
-          const verify = await user.verifyToken(access_token ?? "");
+          const verify = await userModel.verifyToken(access_token ?? "");
           if (!verify) {
             const refresh_token = cookie.refresh_token.value;
             if (!refresh_token) return exit(error, "UNAUTHORIZED");
-            const verifyR = await user.verifyToken(refresh_token);
+            const verifyR = await userModel.verifyToken(refresh_token);
             if (!verifyR) return exit(error, "UNAUTHORIZED");
-            const find = await user.db.findById(verifyR.id);
+            const find = await userModel.db.findById(verifyR.id);
             if (!find) return exit(error, "UNAUTHORIZED");
-            const refresh = await user.generateToken(find, "refresh");
-            const access = await user.generateToken(find, "access");
+            const refresh = await userModel.generateToken(find, "refresh");
+            const access = await userModel.generateToken(find, "access");
             cookie.refresh_token.set({
               value: refresh,
               httpOnly: true,

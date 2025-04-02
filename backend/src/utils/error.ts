@@ -5,9 +5,13 @@ export const ERROR_MESSAGE = {
   USER_NOT_FOUND: [404, "사용자를 찾을 수 없습니다."],
   INVALID_TYPE_USERNAME: [400, "유효하지 않은 사용자 이름(username)입니다."],
   INVALID_TYPE_PASSWORD: [400, "유효하지 않은 비밀번호(password)입니다."],
+  INVALID_ID_TYPE: [400, "유효하지 않은 ID 형식입니다."],
   INVALID_TOKEN: [401, "유효하지 않은 토큰입니다."],
   UNAUTHORIZED: [401, "인증되지 않은 사용자입니다."],
   NO_REFRESH_TOKEN: [401, "리프레시 토큰이 없습니다."],
+
+  NO_ACTIVITY_ID: [400, "활동 ID가 없습니다."],
+  NO_ACTIVITY: [404, "존재하지 않는 활동입니다."],
 
   NOT_FOUNDED_KEY: [404, "찾을 수 없는 식당입니다."],
 } as const;

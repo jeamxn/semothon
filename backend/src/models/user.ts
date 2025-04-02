@@ -47,11 +47,11 @@ const verifyToken = async (token: string): Promise<TokenPayload | null> => {
   }
 };
 
-const User = new Elysia()
-  .decorate("user", {
+const UserModel = new Elysia()
+  .decorate("userModel", {
     db: UserDB,
     generateToken,
     verifyToken,
   });
 
-export default User;
+export default UserModel;
