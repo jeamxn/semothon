@@ -2,7 +2,8 @@
 @import "tailwindcss";
 
 :root {
-  --key: 224 23 50;
+  --origin: 224 23 50;
+  --key: var(--origin);
 }
 
 @theme inline {
