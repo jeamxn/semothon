@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Elysia, { t } from "elysia";
 
 import activityAuthorityService from "@back/guards/activityAuthorityService";
@@ -14,7 +15,9 @@ const details = new Elysia()
         {
           $set: {
             ...body,
-          },
+            updated_datetime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
+          },            
+          
         }
       );
       if (!updated || updated.matchedCount < 1) {
