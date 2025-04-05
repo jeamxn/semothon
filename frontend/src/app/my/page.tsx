@@ -25,7 +25,7 @@ const My = () => {
       </div>
 
       <div className="flex flex-row gap-4 px-4 items-center">
-        <img src="/images/club.png" alt="club" className="object-cover rounded-full bg-white w-24 h-24 border-key border" />
+        <img src={me.picture} alt="club" className="object-cover rounded-full bg-white w-24 h-24" />
         <div className="flex flex-col gap-1">
           <div className="flex flex-row gap-2 items-center">
             <p className="text-drak text-2xl font-bold">{me.name}</p>

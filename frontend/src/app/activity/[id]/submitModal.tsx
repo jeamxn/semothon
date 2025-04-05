@@ -1,13 +1,16 @@
 import React from "react";
 
+import { Activity } from "@common/types/responses";
+
 import Input from "@front/components/input";
 import useAuth from "@front/hooks/useAuth";
 
-const EditModal = ({
-  open, setOpen,
+const SubmitModal = ({
+  open, setOpen, info
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  info: Activity;
 }) => {
   const { me } = useAuth();
 
@@ -23,7 +26,7 @@ const EditModal = ({
       <div className="bg-white rounded-2xl w-11/12 max-w-xl" onClick={(e) => e.stopPropagation()}>
         <div className="w-full h-full max-h-[90vh] bg-dark/5 p-6 flex flex-col gap-4 overflow-y-auto">
           
-          <p className="text-2xl font-bold">내 정보 수정</p>
+          <p className="text-2xl font-bold">{info.name} 지원하기</p>
           <Input
             title="이름"
             essential
@@ -50,35 +53,21 @@ const EditModal = ({
             limit={100}
             placeholder="여기에 내용을 입력하세요."
           />
-          <div className="w-full h-[1px] bg-dark/20" />
-
-          {
-            Array(3).fill(0).map((_, index) => (
-              <div key={index} className="flex flex-row justify-between items-center">
-                <div className="flex flex-col gap-0">
-                  <p className="font-bold">세틀러</p>
-                  <p className="text-dark/35">벤드 동아리</p>
-                </div>
-                <button className="bg-dark/5 border-dark/5 border rounded-2xl px-4 py-2">
-                  <p className="text-key font-bold">탈퇴하기</p>
-                </button>
-              </div>
-            ))
-          }
+          <Input
+            title="간단한 자기소개 부탁드립니다!"
+            essential
+            limit={1000}
+            placeholder="여기에 내용을 입력하세요."
+          />
 
 
-          <div className="flex flex-row items-center gap-2">
-            <button className="bg-dark/10 px-3 py-3 rounded-xl w-full" onClick={() => setOpen(false)}>
-              <p className="text-dark font-bold">취소하기</p>
-            </button>
-            <button className="bg-key px-3 py-3 rounded-xl w-full" onClick={() => setOpen(false)}>
-              <p className="text-white font-bold">수정하기</p>
-            </button>
-          </div>
+          <button className="bg-dark px-3 py-3 rounded-xl w-full" onClick={() => setOpen(false)}>
+            <p className="text-white font-bold">수정하기</p>
+          </button>
         </div>
       </div>
     </div>
   ) : null;
 };
 
-export default EditModal;
+export default SubmitModal;

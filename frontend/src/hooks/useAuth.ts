@@ -1,13 +1,10 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
 
 import { Me } from "@common/types/responses";
 
 import instance from "@front/utils/instance";
 
 const useAuth = () => { 
-  const router = useRouter();
-
   const { data: me } = useQuery<Me>({
     queryKey: ["my"],
     queryFn: async () => {

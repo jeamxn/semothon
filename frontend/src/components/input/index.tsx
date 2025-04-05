@@ -32,14 +32,27 @@ const Input = ({
           </div>
         ) : null
       }
-      <input
-        type="text"
-        placeholder={placeholder}
-        value={tmpText}
-        onChange={(e) => setTmpText(e.target.value)}
-        maxLength={limit}
-        className="bg-dark/5 outline-none rounded-xl px-4 py-4 placeholder:text-dark/35"
-      />
+      {
+        limit ? limit < 500 ? (
+          <input
+            type="text"
+            placeholder={placeholder}
+            value={tmpText}
+            onChange={(e) => setTmpText(e.target.value)}
+            maxLength={limit}
+            className="bg-dark/5 outline-none rounded-xl px-4 py-4 placeholder:text-dark/35"
+          />
+        ) : (
+          <textarea
+            placeholder={placeholder}
+            value={tmpText}
+            onChange={(e) => setTmpText(e.target.value)}
+            maxLength={limit}
+            className="bg-dark/5 outline-none rounded-xl px-4 py-4 placeholder:text-dark/35 resize-none"
+            rows={4}
+          />
+        ) : null
+      }
     </div>
   );
 };
