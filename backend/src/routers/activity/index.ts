@@ -3,6 +3,7 @@ import Elysia from "elysia";
 import ActivityIdRouter from "./[id]";
 import create from "./create";
 import list from "./list";
+import listRecruiting from "./list-recruiting";
 import my from "./my";
 
 const ActivityRouter = new Elysia({
@@ -10,6 +11,7 @@ const ActivityRouter = new Elysia({
   prefix: "activity",
 })
   .use(list)
+  .use(listRecruiting)
   .use(ActivityIdRouter)
   .use(create)
   .use(my);
