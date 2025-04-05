@@ -1,0 +1,25 @@
+{
+  "name": "Khulub :: 쿨럽",
+  "short_name": "Khulub",
+  "description": "활동 관리를 한 번에",
+  "icons": [
+    { 
+      "src": "/favicon.ico", 
+      "type": "image/x-icon", 
+      "sizes": "16x16 32x32"
+    },
+    { 
+      "src": "/icons/icon-192.png", 
+      "type": "image/png", 
+      "sizes": "192x192"
+    },
+    { 
+      "src": "/icons/icon-512.png", 
+      "type": "image/png", 
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait-primary"
+}
