@@ -14,13 +14,13 @@ export const ActivityCategory = [
 ] as const;
 export type ActivityCategoryType = typeof ActivityCategory[number];
 
-interface Award {
+export interface Award {
   type: string;
   name: string;
   date?: string;
 }
 
-interface DActivity {
+export interface DActivity {
   name: string;
   headline: string;
   edit_permission: PermissionType;

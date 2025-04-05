@@ -1,8 +1,15 @@
+"use client";
+
+import Link from "next/link";
 import React from "react";
 
 import Icons from "@front/components/icons";
+import useAuth from "@front/hooks/useAuth";
 
 const Home = () => {
+  const { me, myActivities } = useAuth();
+  const [activityI, setActivityI] = React.useState(0);
+
   return (
     <div className="w-full py-4 flex flex-col gap-4">
       <div className="w-full flex justify-between items-center px-4">
@@ -16,23 +23,40 @@ const Home = () => {
       <div className="flex flex-col gap-4 px-4">
         <p className="text-2xl font-bold">내 소속 동아리</p>
         <div className="relative px-4 py-6 bg-key rounded-2xl flex flex-row gap-4 items-center justify-start">
-          <img src="/images/club.png" alt="club" className="w-16 h-16 object-cover rounded-full bg-white" />
-          <div className="flex flex-col gap-1">
-            <p className="text-white text-2xl font-bold">세틀러</p>
-            <div className="flex flex-row gap-1 items-center">
-              <p className="text-white/60 text-base font-bold">부원</p>
-              <p className="text-white text-base font-bold">최호연</p>
+          <img src={myActivities[activityI].logo_url} alt="club" className="w-16 h-16 object-cover rounded-full bg-white" />
+          <Link href={`/activity/${myActivities[activityI]["_id"]}/belong`} prefetch>
+            <div className="flex flex-col gap-1">
+              <p className="text-white text-2xl font-bold">{myActivities[activityI].name}</p>
+              <div className="flex flex-row gap-1 items-center">
+                <p className="text-white/60 text-base font-bold whitespace-nowrap">
+                  {
+                    myActivities[activityI].my_permission === "president" ? "회장" : myActivities[activityI].my_permission === "vice_president" ? "부회장" : myActivities[activityI].my_permission === "member" ? "부원" : "비회원"
+                  }
+                </p>
+                <p className="text-white text-base font-bold">{me.name}</p>
+              </div>
             </div>
-          </div>
+          </Link>
           <div className=" absolute right-4 top-4">
-            <p className="text-white/60 font-bold underline">마이페이지</p>
+            <Link href="/my" prefetch>
+              <p className="text-white/60 font-bold underline cursor-pointer">마이페이지</p>
+            </Link>
           </div>
         </div>
         <div className="flex flex-col gap-2">
           <p className="text-key/70 font-bold text-sm">동아리 전환</p>
           <div className="flex flex-row gap-2 items-center justify-start">
-            <img src="/images/club.png" alt="club" className="w-10 h-10 object-cover rounded-full bg-white" />
-            <img src="/images/club.png" alt="club" className="w-10 h-10 object-cover rounded-full bg-white" />
+            {
+              myActivities.map((activity, index) => (
+                <button
+                  key={index}
+                  className={`cursor-pointer w-10 h-10 rounded-full bg-white ${activityI === index ? "border-2 border-key" : ""}`}
+                  onClick={() => setActivityI(index)}
+                >
+                  <img src={activity.logo_url} alt="club" className="w-full h-full object-cover rounded-full" />
+                </button>
+              ))
+            }
           </div>
         </div>
       </div>
@@ -87,6 +111,7 @@ const Home = () => {
         </div>
       </div>
       
+
 
     </div>
   );
