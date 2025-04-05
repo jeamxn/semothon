@@ -1,6 +1,7 @@
 import Elysia from "elysia";
 
 import ActivityRouter from "./activity";
+import ApplicationRouter from "./application";
 import AuthRouter from "./auth";
 import BoardRouter from "./board";
 import EventRouter from "./event";
@@ -12,6 +13,7 @@ const IndexRouter = new Elysia({
 })
   .use(AuthRouter)
   .use(ActivityRouter)
+  .use(ApplicationRouter)
   .use(TimetableRouter)
   .use(EventRouter)
   .use(BoardRouter);

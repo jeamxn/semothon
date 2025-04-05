@@ -2,7 +2,7 @@ import Elysia, { t } from "elysia";
 
 import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
-import exit from "@back/utils/error";
+import exit, { errorElysia } from "@back/utils/error";
 
 const details = new Elysia()
   .use(activityAuthorityService())
@@ -34,6 +34,14 @@ const details = new Elysia()
           activity_history: activityElysiaSchema.properties.activity_history,
           awards: activityElysiaSchema.properties.awards,
           images_url: activityElysiaSchema.properties.images_url,
+          questions: activityElysiaSchema.properties.questions,
+          is_hidden: activityElysiaSchema.properties.is_hidden,
+          is_always_recruiting: activityElysiaSchema.properties.is_always_recruiting,
+          document_screening_period: activityElysiaSchema.properties.document_screening_period,
+          document_result_date: activityElysiaSchema.properties.document_result_date,
+          interview_period: activityElysiaSchema.properties.interview_period,
+          interview_result_date: activityElysiaSchema.properties.interview_result_date,
+          final_result_date: activityElysiaSchema.properties.final_result_date,
         })
       ),
       response: {
@@ -47,6 +55,7 @@ const details = new Elysia()
             examples: ["활동(동아리) 정보 수정 성공"],
           }),
         }),
+        ...errorElysia(["UPDATE_FAILED"]),
       },
       detail: {
         tags: ["Activity"],
