@@ -39,7 +39,7 @@ const userService = new Elysia({ name: "user/service" })
               path: "/",
               sameSite: "none",
               secure: true,
-              domain: Bun.env.NEXT_PUBLIC_APP_URL ?? "",
+              domain: ".jeamxn.dev"
             });
             cookie.access_token.set({
               value: access,
@@ -48,7 +48,7 @@ const userService = new Elysia({ name: "user/service" })
               path: "/",
               sameSite: "none",
               secure: true,
-              domain: Bun.env.NEXT_PUBLIC_APP_URL ?? "",
+              domain: ".jeamxn.dev"
             });
           }
         },

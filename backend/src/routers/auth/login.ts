@@ -40,7 +40,7 @@ const login = new Elysia().use(UserModel).post(
       path: "/",
       sameSite: "none",
       secure: true,
-      domain: Bun.env.NEXT_PUBLIC_APP_URL ?? ""
+      domain: ".jeamxn.dev"
     });
 
     cookie.access_token.set({
@@ -50,7 +50,7 @@ const login = new Elysia().use(UserModel).post(
       path: "/",
       sameSite: "none",
       secure: true,
-      domain: Bun.env.NEXT_PUBLIC_APP_URL ?? ""
+      domain: ".jeamxn.dev"
     });
 
     return {
