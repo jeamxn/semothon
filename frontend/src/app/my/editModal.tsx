@@ -32,24 +32,6 @@ const EditModal = ({
             text={name}
             setText={setName}
           />
-          <Input
-            title="학번"
-            essential
-            limit={100}
-            placeholder="여기에 내용을 입력하세요."
-          />
-          <Input
-            title="학과"
-            essential
-            limit={100}
-            placeholder="여기에 내용을 입력하세요."
-          />
-          <Input
-            title="연락처"
-            essential
-            limit={100}
-            placeholder="여기에 내용을 입력하세요."
-          />
           <div className="w-full h-[1px] bg-dark/20" />
 
           {

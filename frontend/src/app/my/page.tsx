@@ -9,7 +9,7 @@ import useAuth from "@front/hooks/useAuth";
 import EditModal from "./editModal";
 
 const My = () => {
-  const { me } = useAuth();
+  const { me, myActivities } = useAuth();
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -38,7 +38,6 @@ const My = () => {
           </div>
           <div className="flex flex-col gap-1">
             <p className="text-sm text-dark/50">{me.email}</p>
-            <p className="text-sm text-dark/50">건축학과 25학번</p>
           </div>
         </div>
       </div>
@@ -49,17 +48,17 @@ const My = () => {
         <div className="overflow-x-auto scrollbar-hide">
           <div className="flex flex-row gap-4 overflow-x-auto snap scrollbar-hide px-4">
             {
-              Array(20).fill(0).map((_, index) => (
+              myActivities.map((activity, index) => (
                 <div key={index}>
-                  <div className="flex flex-col gap-2 w-48 snap-item">
-                    <img src="/images/club.png" alt="club" className="w-full aspect-video object-cover rounded-2xl bg-white" />
+                  <Link href={`/activity/${activity._id}/belong`} className="flex flex-col gap-2 w-48 snap-item cursor-pointer">
+                    <img src={activity.logo_url} alt="club" className="w-full aspect-video object-cover rounded-2xl bg-white" />
                     <div className="flex flex-row justify-between items-start w-full">
                       <div className="flex flex-col gap-0">
-                        <p className="font-bold">세틀러</p>
-                        <p className="text-dark/35">벤드 동아리</p>
+                        <p className="font-bold">{activity.name}</p>
+                        <p className="text-dark/35">{activity.small_type}</p>
                       </div>
                     </div>
-                  </div>
+                  </Link>
                 </div>
               ))
             }

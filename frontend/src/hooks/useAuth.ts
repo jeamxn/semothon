@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
 
-import { Me } from "@common/types/responses";
+import { ActivityWithPermission, Me } from "@common/types/responses";
 
 import instance from "@front/utils/instance";
 
@@ -20,6 +20,35 @@ const useAuth = () => {
     },
   });
 
+  const { data: myActivities } = useQuery<ActivityWithPermission[]>({
+    queryKey: ["myActivities"],
+    queryFn: async () => {
+      const res = await instance.get("/activity/my");
+      return res.data;
+    },
+    initialData: [
+      {
+        _id: "",
+        name: "",
+        big_type: "center",
+        small_type: "",
+        headline: "",
+        description: "",
+        logo_url: "",
+        homepage_url: "",
+        is_hidden: false,
+        my_permission: "member",
+        key_color: "",
+        video_url: "",
+        activity_history: "",
+        awards: [],
+        images_url: [],
+        edit_permission: "member",
+        instagram: "",
+      }
+    ],
+  });
+
   const { mutate: logout } = useMutation({
     mutationKey: ["logout"],
     mutationFn: async () => {
@@ -36,7 +65,7 @@ const useAuth = () => {
 
 
   return {
-    me, logout
+    me, logout, myActivities
   };
 };
 

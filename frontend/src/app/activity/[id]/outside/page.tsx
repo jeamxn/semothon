@@ -8,8 +8,9 @@ import { Activity } from "@common/types/responses";
 import Icons from "@front/components/icons";
 import instance from "@front/utils/instance";
 
-import ModalButton from "./modalButton";
-import SetColor from "./setColor";
+import BackButton from "../backButton";
+import ModalButton from "../modalButton";
+import SetColor from "../setColor";
 
 const Club = async ({
   params,
@@ -31,12 +32,12 @@ const Club = async ({
     return (
       <div className="w-full py-4 flex flex-col gap-4">
         <div className="px-4 flex flex-row gap-3 items-center">
-          <Link href="/main" prefetch>
+          <BackButton>
             <Icons.Back
               size={24}
               className="fill-dark"
             />
-          </Link>
+          </BackButton>
           <p className="text-2xl font-bold">{type === "update" ? "업데이트 된 동아리" : "모집 중인 동아리"}</p>
         </div>
 
