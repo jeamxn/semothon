@@ -1,9 +1,9 @@
 import axios from "axios";
+import Bun from "bun";
 import Elysia, { t } from "elysia";
 
 import UserModel from "@back/models/user";
 import exit, { errorElysia } from "@back/utils/error";
-
 
 const login = new Elysia().use(UserModel).post(
   "login",
@@ -40,6 +40,7 @@ const login = new Elysia().use(UserModel).post(
       path: "/",
       sameSite: "none",
       secure: true,
+      domain: Bun.env.NEXT_PUBLIC_APP_URL ?? ""
     });
 
     cookie.access_token.set({
@@ -49,6 +50,7 @@ const login = new Elysia().use(UserModel).post(
       path: "/",
       sameSite: "none",
       secure: true,
+      domain: Bun.env.NEXT_PUBLIC_APP_URL ?? ""
     });
 
     return {

@@ -1,3 +1,4 @@
+import Bun from "bun";
 import { Elysia } from "elysia";
 
 import UserModel from "@back/models/user";
@@ -38,6 +39,7 @@ const userService = new Elysia({ name: "user/service" })
               path: "/",
               sameSite: "none",
               secure: true,
+              domain: Bun.env.NEXT_PUBLIC_APP_URL ?? "",
             });
             cookie.access_token.set({
               value: access,
@@ -46,6 +48,7 @@ const userService = new Elysia({ name: "user/service" })
               path: "/",
               sameSite: "none",
               secure: true,
+              domain: Bun.env.NEXT_PUBLIC_APP_URL ?? "",
             });
           }
         },
