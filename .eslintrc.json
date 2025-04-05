@@ -41,42 +41,43 @@
     "react-native/no-inline-styles": "off",
     "react-hooks/exhaustive-deps": "off",
     "no-unused-vars": "warn",
-"import/order": [
-  "error",
-  {
-    "groups": [
-      "builtin",
-      "external",
-      "internal",
-      "parent",
-      "sibling",
-      "index"
-    ],
-    "pathGroups": [
+    "@next/next/no-img-element": "off",
+    "import/order": [
+      "error",
       {
-        "pattern": "@common/**",
-        "group": "internal",
-        "position": "after"
-      },
-      {
-        "pattern": "@front/**",
-        "group": "internal",
-        "position": "after"
-      },
-      {
-        "pattern": "@back/**",
-        "group": "internal",
-        "position": "after"
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          "parent",
+          "sibling",
+          "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "@common/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@front/**",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "@back/**",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["builtin"],
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        },
+        "newlines-between": "always"
       }
     ],
-    "pathGroupsExcludedImportTypes": ["builtin"],
-    "alphabetize": {
-      "order": "asc",
-      "caseInsensitive": true
-    },
-    "newlines-between": "always"
-  }
-],
     "prefer-arrow/prefer-arrow-functions": [
       "error",
       {

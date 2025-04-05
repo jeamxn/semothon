@@ -54,8 +54,8 @@ const RootLayout = ({
   children: React.ReactNode;
 }>) => {
   return (
-    <html lang="ko" className="w-full h-full overflow-hidden">
-      <body className="antialiased w-full h-full flex flex-col items-center justify-center overflow-hidden">
+    <html lang="ko" className="w-full h-full overflow-hidden bg-white">
+      <body className="antialiased w-full h-full flex flex-col items-center justify-center overflow-hidden bg-dark/5">
         <Providers>
           <div className="max-w-2xl w-full h-full overflow-hidden">
             <div className="overflow-y-auto w-full h-full">

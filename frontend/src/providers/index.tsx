@@ -2,6 +2,7 @@
 
 import React from "react";
 
+import ColorProvider from "./ColorProvider";
 import GoogleOauthProvider from "./GoogleOauthProvider";
 import ReactQueryProvider from "./ReactQueryProvider";
 
@@ -13,7 +14,9 @@ const Providers = ({
   return (
     <ReactQueryProvider>
       <GoogleOauthProvider>
-        {children}
+        <ColorProvider>
+          {children}
+        </ColorProvider>
       </GoogleOauthProvider>
     </ReactQueryProvider>
   );
