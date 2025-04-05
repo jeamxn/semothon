@@ -8,7 +8,9 @@ export interface Me {
   picture: string;
 }
 
-export type Activity = DActivity;
+export type Activity = DActivity & {
+  _id: string;
+};
 
 export type ActivityWithPermission = DActivity & {
   _id: string;

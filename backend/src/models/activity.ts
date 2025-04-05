@@ -66,6 +66,8 @@ export interface DActivity {
   interview_period?: Period;
   interview_result_date?: string;
   final_result_date?: string;
+
+  updated_datetime?: string;
 }
 export type IActivity = IDocument<DActivity>;
 

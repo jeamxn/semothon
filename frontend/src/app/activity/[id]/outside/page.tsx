@@ -106,7 +106,11 @@ const Club = async ({
         <div className="w-full px-4">
           <div className="bg-white w-full p-4 rounded-2xl flex flex-col gap-2">
             <p className="text-xl text-dark font-bold">{info.headline}</p>
-            <p className="text-dark/50">{info.description}</p>
+            {
+              info.description?.split("\n").map((text, index) => (
+                <p className="text-dark/50" key={index}>{text}</p>
+              ))
+            }
           </div>
         </div>
 
@@ -115,7 +119,11 @@ const Club = async ({
             <div className="w-full px-4">
               <div className="bg-white w-full p-4 rounded-2xl flex flex-col gap-2">
                 <p className="text-xl text-dark font-bold">활동 계획</p>
-                <p className="text-dark/50">{info.activity_history}</p>
+                {
+                  info.activity_history?.split("\n").map((text, index) => (
+                    <p className="text-dark/50" key={index}>{text}</p>
+                  ))
+                }
               </div>
             </div>
           ) : null

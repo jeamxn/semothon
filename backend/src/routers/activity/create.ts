@@ -27,6 +27,7 @@ const create = new Elysia().use(ActivityModel).use(JoinedActivityModel).use(getU
       logo_url,
       key_color: "#000000",
       is_hidden: false,
+      updated_datetime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
     });
     if (!insert) {
       return exit(error, "INSERT_ACTIVITY_FAILED");

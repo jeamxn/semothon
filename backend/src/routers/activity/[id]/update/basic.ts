@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import Elysia, { t } from "elysia";
 
 import activityAuthorityService from "@back/guards/activityAuthorityService";
@@ -14,6 +15,7 @@ const basic = new Elysia()
         {
           $set: {
             ...body,
+            updated_datetime: dayjs().format("YYYY-MM-DD HH:mm:ss"),
           },
         }
       );

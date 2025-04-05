@@ -9,6 +9,7 @@ import Icons from "@front/components/icons";
 import instance from "@front/utils/instance";
 
 import BackButton from "../backButton";
+import SetColor from "../setColor";
 
 const Club = async ({
   params,
@@ -84,7 +85,7 @@ const Club = async ({
           ))
         }
         
-
+        <SetColor color={info.key_color} />
       </div>
     );
   }
