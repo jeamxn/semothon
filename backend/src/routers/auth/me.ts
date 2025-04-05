@@ -10,6 +10,8 @@ const me = new Elysia().use(getUser).get(
     return {
       _id: user._id.toString(),
       email: user.email,
+      name: user.name,
+      picture: user.picture,
     };
   },
   {
@@ -17,6 +19,8 @@ const me = new Elysia().use(getUser).get(
       200: t.Object({
         _id: t.String(),
         email: t.String(),
+        name: t.String(),
+        picture: t.String(),
       }),
     },
     detail: {
