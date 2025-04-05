@@ -26,7 +26,10 @@ const list = new Elysia().use(ActivityModel).get(
       return [];
     }
     const activityList: IActivity[] = activitySearch.map((activity) => {
-      return activity.toObject();
+      return {
+        ...activity.toObject(),
+        _id: activity._id.toString(),
+      } as unknown as IActivity;
     });
     return activityList;
   },

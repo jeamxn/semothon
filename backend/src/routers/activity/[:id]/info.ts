@@ -5,7 +5,10 @@ import { activityElysiaSchema } from "@back/models/activity";
 
 const info = new Elysia().use(getActivity).get(
   "",
-  async ({ activity }) => activity,
+  async ({ activity }) => ({
+    ...activity,
+    _id: activity._id.toString(),
+  }),
   {
     response: {
       200: activityElysiaSchema,

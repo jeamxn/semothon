@@ -1,5 +1,5 @@
 import dayjs from "dayjs";
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import mongoose, { ObjectId } from "mongoose";
 
 import { IDocument } from "@common/types/db";
@@ -14,13 +14,32 @@ export const permissionList = [
 ] as const;
 export type PermissionType = typeof permissionList[number];
 
-interface DJoinedActivity {
+export interface DJoinedActivity {
   activity_id: ObjectId;
   user_id: ObjectId;
   permission: PermissionType;
   joined_at: String;
 }
-type IJoinedActivity = IDocument<DJoinedActivity>;
+export type IJoinedActivity = IDocument<DJoinedActivity>;
+
+export const joinedActivityElysiaSchema = t.Object({
+  activity_id: t.String({
+    description: "활동(동아리) ID",
+    examples: ["646f3a2b4c1d4e2f8c8b4567"],
+  }),
+  user_id: t.String({
+    description: "사용자 ID",
+    examples: ["646f3a2b4c1d4e2f8c8b4567"],
+  }),
+  permission: t.String({
+    description: "활동(동아리) 권한",
+    examples: permissionList,
+  }),
+  joined_at: t.String({
+    description: "가입 날짜",
+    examples: ["2023-10-01 12:00:00"],
+  }),
+});
 
 const joinedActivitySchema = new mongoose.Schema({
   activity_id: {

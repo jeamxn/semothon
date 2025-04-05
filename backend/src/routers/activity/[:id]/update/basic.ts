@@ -4,7 +4,7 @@ import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
 import exit from "@back/utils/error";
 
-const basic_update = new Elysia()
+const basic = new Elysia()
   .use(activityAuthorityService("vice_president"))
   .post(
     "basic",
@@ -35,6 +35,8 @@ const basic_update = new Elysia()
           logo_url: activityElysiaSchema.properties.logo_url,
           key_color: activityElysiaSchema.properties.key_color,
           is_hidden: activityElysiaSchema.properties.is_hidden,
+          homepage_url: activityElysiaSchema.properties.homepage_url,
+          instagram: activityElysiaSchema.properties.instagram,
         })
       ),
       response: {
@@ -57,4 +59,4 @@ const basic_update = new Elysia()
     },
   );
 
-export default basic_update;
+export default basic;

@@ -1,9 +1,11 @@
 import Bun from "bun";
-import Elysia from "elysia";
+import Elysia, { t } from "elysia";
 import { type JWTPayload, SignJWT, jwtVerify } from "jose";
 import mongoose from "mongoose";
 
 import { IDocument } from "@common/types/db";
+
+import { DJoinedActivity, joinedActivityElysiaSchema } from "./joined_activity";
 
 interface DUser {
   email: string;
@@ -11,6 +13,29 @@ interface DUser {
   name: string;
 }
 export type IUser = IDocument<DUser>;
+export interface UserWithPermission extends IUser {
+  permission: DJoinedActivity["permission"];
+}
+
+export const userElysiaSchema = t.Object({
+  email: t.String({
+    description: "사용자 이메일",
+    examples: ["jeamxn@khu.ac.kr"],
+  }),
+  picture: t.String({
+    description: "사용자 프로필 사진 URL",
+    examples: ["https://example.com/profile.jpg"],
+  }),
+  name: t.String({
+    description: "사용자 이름",
+    examples: ["최재민"],
+  }),
+});
+
+export const userElysiaSchemaWithPermission = t.Object({
+  ...userElysiaSchema.properties,
+  permission: joinedActivityElysiaSchema.properties.permission,
+});
 
 const userSchema = new mongoose.Schema({
   email: { type: String, required: true },

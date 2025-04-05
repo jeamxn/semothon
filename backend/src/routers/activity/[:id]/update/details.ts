@@ -4,7 +4,7 @@ import activityAuthorityService from "@back/guards/activityAuthorityService";
 import { activityElysiaSchema } from "@back/models/activity";
 import exit from "@back/utils/error";
 
-const details_update = new Elysia()
+const details = new Elysia()
   .use(activityAuthorityService())
   .post(
     "details",
@@ -56,4 +56,4 @@ const details_update = new Elysia()
     },
   );
 
-export default details_update;
+export default details;

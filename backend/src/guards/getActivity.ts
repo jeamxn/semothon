@@ -27,6 +27,7 @@ const getActivity = new Elysia()
       if (!activitySearch) {
         return exit(error, "NO_ACTIVITY");
       }
+
       return {
         activity: activitySearch.toObject(),
       };
