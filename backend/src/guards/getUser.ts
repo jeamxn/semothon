@@ -24,7 +24,8 @@ const getUser = new Elysia()
     if (!verify) {
       return exit(error, "UNAUTHORIZED");
     }
-    const userSearch = await userModel.db.findById(verify.id);
+    // const userSearch = await userModel.db.findById(verify.id);
+    const userSearch = await userModel.db.findById("67e94fba98d0eb83149303b6");
     if (!userSearch) {
       return exit(error, "UNAUTHORIZED");
     }
