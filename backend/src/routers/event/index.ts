@@ -1,6 +1,6 @@
 import Elysia from "elysia";
 
-import EventIdRouter from "./[:id]";
+import EventIdRouter from "./[id]";
 import create from "./create";
 import list from "./list";
 

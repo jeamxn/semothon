@@ -1,6 +1,6 @@
 import Elysia from "elysia";
 
-import ActivityIdRouter from "./[:id]";
+import ActivityIdRouter from "./[id]";
 import create from "./create";
 import list from "./list";
 
