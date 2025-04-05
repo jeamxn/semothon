@@ -1,12 +1,7 @@
-import React from "react";
+import { redirect } from "next/navigation";
 
 const Home = () => {
-  return (
-    <div className="w-full py-4 flex flex-col gap-4">
-      
-
-    </div>
-  );
+  return redirect("/main");
 };
 
 export default Home;
